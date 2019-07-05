@@ -10,8 +10,11 @@ RUN cd /matrix-puppet-signal && \
     cd signal-desktop && \
     git checkout v0.39.0
 
-RUN mkdir /conf && \
-    ln -s /conf/config.json /matrix-puppet-signal/config.json
+RUN mkdir /conf /data && \
+    ln -s /conf/config.json /matrix-puppet-signal/config.json && \
+    ln -s /data/D_signal.sqlite /matrix-puppet-signal/D_signal.sqlite && \
+    ln -s /data/__sysdb__.sqlite /matrix-puppet-signal/__sysdb__.sqlite && \
+    ln -s /data /matrix-puppet-signal/data
 
 ADD entry.sh /
 
