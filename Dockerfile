@@ -1,14 +1,20 @@
-FROM node:12-alpine
+FROM node:10.13.0-slim
 
-RUN apk add --no-cache git python make gcc g++
-RUN git clone https://github.com/matrix-hacks/matrix-puppet-signal.git
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN apt-get -y update && \
+	apt-get -y install git python make gcc g++ apt-transport-https bzip2 && \
+	echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+	apt-get -y update && \
+	apt-get -y install yarn
+RUN git clone https://github.com/nr23730/matrix-puppet-signal.git
 RUN cd /matrix-puppet-signal && \
-    npm install && \
+	npm remove --save signal-desktop && \ # we install this manually to prevent duplicate dependencies
+    npm --unsafe-perm install && \
     cd node_modules && \
-    rm -rf signal-desktop && \
-    git clone "https://github.com/signalapp/signal-desktop.git" && \
+    git clone https://github.com/nr23730/signal-desktop.git && \
     cd signal-desktop && \
-    git checkout v0.39.0
+    yarn && \
+    yarn grunt
 
 RUN mkdir /conf /data && \
     ln -s /conf/config.json /matrix-puppet-signal/config.json && \

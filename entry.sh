@@ -3,7 +3,6 @@
 cd /matrix-puppet-signal
 
 CMD=$1
-shift
 
 if [ "$CMD" = "link" ]; then
     npm run link
@@ -16,7 +15,7 @@ if [ "$CMD" = "clean" ]; then
 fi
 
 if [ "$CMD" = "registration" ]; then
-    echo "reg $@"
+    shift
     node /matrix-puppet-signal/index.js -r -u $@
     cat signal-registration.yaml
     exit
