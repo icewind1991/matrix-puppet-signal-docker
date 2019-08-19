@@ -1,4 +1,4 @@
-FROM node:10.13.0-slim
+FROM node:10.13.0-slim AS build
 
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN apt-get -y update && \
@@ -8,13 +8,16 @@ RUN apt-get -y update && \
 	apt-get -y install yarn
 RUN git clone https://github.com/nr23730/matrix-puppet-signal.git
 RUN cd /matrix-puppet-signal && \
-	npm remove --save signal-desktop && \ # we install this manually to prevent duplicate dependencies
     npm --unsafe-perm install && \
-    cd node_modules && \
-    git clone https://github.com/nr23730/signal-desktop.git && \
-    cd signal-desktop && \
+    npm install electron && \
+    cd node_modules/signal-desktop && \
     yarn && \
-    yarn grunt
+    yarn grunt && \
+    rm -r node_modules && \
+    ln -s /matrix-puppet-signal/node_modules .
+
+FROM node:10.13.0-slim
+COPY --from=build /matrix-puppet-signal /matrix-puppet-signal
 
 RUN mkdir /conf /data && \
     ln -s /conf/config.json /matrix-puppet-signal/config.json && \
