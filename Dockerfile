@@ -8,6 +8,8 @@ RUN apt-get -y update && \
 	apt-get -y install yarn
 RUN git clone https://github.com/nr23730/matrix-puppet-signal.git
 RUN cd /matrix-puppet-signal && \
+    git pull && \
+    git checkout 946b5bd05ce14b52e3558cf0d1d94b045be8e1c0 && \
     npm --unsafe-perm install && \
     npm install electron && \
     cd node_modules/signal-desktop && \
