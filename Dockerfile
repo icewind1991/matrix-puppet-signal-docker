@@ -6,10 +6,10 @@ RUN apt-get -y update && \
 	echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
 	apt-get -y update && \
 	apt-get -y install yarn
-RUN git clone https://github.com/nr23730/matrix-puppet-signal.git
+RUN git clone https://github.com/matrix-hacks/matrix-puppet-signal.git
 RUN cd /matrix-puppet-signal && \
     git pull && \
-    git checkout 178b767069ee5994b5048f0ccc90ad0d59450705 && \
+    git checkout fcdfb33bb590625033920a57c5aef7fd3fda57bd && \
     npm --unsafe-perm install && \
     npm install electron && \
     cd node_modules/signal-desktop && \
