@@ -9,7 +9,7 @@ RUN apt-get -y update && \
 RUN git clone https://github.com/nr23730/matrix-puppet-signal.git
 RUN cd /matrix-puppet-signal && \
     git pull && \
-    git checkout 946b5bd05ce14b52e3558cf0d1d94b045be8e1c0 && \
+    git checkout 178b767069ee5994b5048f0ccc90ad0d59450705 && \
     npm --unsafe-perm install && \
     npm install electron && \
     cd node_modules/signal-desktop && \
