@@ -9,7 +9,7 @@ RUN apt-get -y update && \
 	apt-get -y install yarn
 RUN git clone https://github.com/witchent/matrix-puppet-signal.git && \
     cd /matrix-puppet-signal && \                                                                                                                                                                                                                              
-    git checkout 191be73
+    git checkout abc58ab
 RUN cd /matrix-puppet-signal && \
     npm --unsafe-perm install
 RUN cd /matrix-puppet-signal &&  \
