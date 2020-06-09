@@ -10,7 +10,7 @@ if [ "$CMD" = "link" ]; then
 fi
 
 if [ "$CMD" = "clean" ]; then
-    npm run link
+    npm run clean
     exit
 fi
 

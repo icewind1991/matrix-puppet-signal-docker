@@ -9,7 +9,7 @@ RUN apt-get -y update && \
 	apt-get -y install yarn
 RUN git clone https://github.com/witchent/matrix-puppet-signal.git && \
     cd /matrix-puppet-signal && \                                                                                                                                                                                                                              
-    git checkout abc58ab
+    git checkout 2503f3f
 RUN cd /matrix-puppet-signal && \
     npm --unsafe-perm install
 RUN cd /matrix-puppet-signal &&  \
@@ -34,6 +34,7 @@ RUN mkdir /conf /data && \
     ln -s /data/__sysdb__.sqlite /matrix-puppet-signal/__sysdb__.sqlite && \
     ln -s /data /matrix-puppet-signal/data
 
+WORKDIR /matrix-puppet-signal
 ADD entry.sh /
 
 ENTRYPOINT ["/bin/sh", "/entry.sh"]
